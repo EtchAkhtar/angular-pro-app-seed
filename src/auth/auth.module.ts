@@ -10,6 +10,8 @@ import { AngularFireModule, FirebaseAppConfig } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
+import { LoggedInGuard } from './shared/guards/loggedin.guard';
+
 // routes
 export const ROUTES: Routes = [
   {
@@ -22,10 +24,12 @@ export const ROUTES: Routes = [
       },
       {
         path: 'login',
+        canActivate: [LoggedInGuard],
         loadChildren: './login/login.module#LoginModule'
       },
       {
         path: 'register',
+        canActivate: [LoggedInGuard],
         loadChildren: './register/register.module#RegisterModule'
       }
     ]
