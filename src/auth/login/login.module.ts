@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 // modules
 import { SharedModule } from '../shared/shared.module';
 
-// components
+// containers
 import { LoginComponent } from './containers/login/login.component';
 
 // routes
