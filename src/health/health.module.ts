@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// modules
-import { MealsModule } from './meals/meals.module';
+import { AuthGuard } from '../auth/shared/guards/auth.guard';
 
 // routes
 export const ROUTES: Routes = [
   {
     path: 'schedule',
+    canActivate: [AuthGuard],
     loadChildren: './schedule/schedule.module#ScheduleModule'
   },
   {
     path: 'meals',
+    canActivate: [AuthGuard],
     loadChildren: './meals/meals.module#MealsModule'
   },
   {
     path: 'workouts',
+    canActivate: [AuthGuard],
     loadChildren: './workouts/workouts.module#WorkoutsModule'
   }
 ];
