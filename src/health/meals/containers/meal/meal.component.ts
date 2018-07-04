@@ -53,6 +53,17 @@ export class MealComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {}
 
+  ngOnInit() {
+    this.subscription = this.mealsService.meals$.subscribe();
+    this.meal$ = this.route.params.switchMap(param =>
+      this.mealsService.getMeal(param.id)
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe;
+  }
+
   async addMeal(event: Meal) {
     await this.mealsService.addMeal(event);
     this.backToMeals();
@@ -72,16 +83,5 @@ export class MealComponent implements OnInit, OnDestroy {
 
   backToMeals() {
     this.router.navigate(['meals']);
-  }
-
-  ngOnInit() {
-    this.subscription = this.mealsService.meals$.subscribe();
-    this.meal$ = this.route.params.switchMap(param =>
-      this.mealsService.getMeal(param.id)
-    );
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe;
   }
 }

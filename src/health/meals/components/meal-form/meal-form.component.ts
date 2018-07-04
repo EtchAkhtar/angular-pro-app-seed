@@ -151,6 +151,10 @@ export class MealFormComponent implements OnChanges {
     }
   }
 
+  toggle() {
+    this.toggled = !this.toggled;
+  }
+
   get required() {
     const control = this.form.get('name');
     return control.hasError('required') && control.touched;
@@ -158,10 +162,6 @@ export class MealFormComponent implements OnChanges {
 
   get ingredients() {
     return this.form.get('ingredients') as FormArray;
-  }
-
-  toggle() {
-    this.toggled = !this.toggled;
   }
 
   addIngredient() {
