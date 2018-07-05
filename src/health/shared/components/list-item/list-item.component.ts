@@ -23,7 +23,7 @@ import {
           <span>
             {{ item | workout }}
           </span>
-    </ng-template>
+        </ng-template>
       </a>
 
       <div class="list-item__delete" *ngIf="toggled">
