@@ -12,6 +12,7 @@ import { WorkoutComponent } from './containers/workout/workout.component';
 
 // components
 import { WorkoutFormComponent } from './components/workout-form/workout-form.component';
+import { WorkoutTypeComponent } from './components/workout-type/workout-type.component';
 
 // routes
 export const ROUTES: Routes = [
@@ -27,6 +28,11 @@ export const ROUTES: Routes = [
     RouterModule.forChild(ROUTES),
     SharedModule
   ],
-  declarations: [WorkoutsComponent, WorkoutComponent, WorkoutFormComponent]
+  declarations: [
+    WorkoutsComponent,
+    WorkoutComponent,
+    WorkoutFormComponent,
+    WorkoutTypeComponent
+  ]
 })
 export class WorkoutsModule {}
