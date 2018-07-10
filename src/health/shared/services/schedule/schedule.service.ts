@@ -32,40 +32,6 @@ export class ScheduleService {
   private section$: Subject<{}> = new Subject();
   private itemList$: Subject<{}> = new Subject();
 
-  items$: Observable<any> = this.itemList$.pipe(
-    withLatestFrom(this.section$),
-    map(([items, section]: any[]) => {
-      const id = section.data.$key;
-
-      const defaults: ScheduleItem = {
-        workouts: null,
-        meals: null,
-        section: section.section,
-        timestamp: new Date(section.day).getTime()
-      };
-
-      const payload = {
-        ...(id ? section.data : defaults),
-        ...items
-      };
-
-      if (id) {
-        return this.updateSection(id, payload);
-      } else {
-        return this.createSection(payload);
-      }
-    })
-  );
-
-  selected$: Observable<any> = this.section$.pipe(
-    tap((next: any) => this.store.set('selected', next))
-  );
-
-  list$: Observable<any> = this.section$.pipe(
-    map((value: any) => this.store.value[value.type]),
-    tap((next: any) => this.store.set('list', next))
-  );
-
   schedule$: Observable<ScheduleItem[]> = this.date$.pipe(
     tap((next: any) => this.store.set('date', next)),
     map((day: Date) => {
@@ -87,7 +53,6 @@ export class ScheduleService {
     switchMap(({ startAt, endAt }: any) => this.getSchedule(startAt, endAt)),
     map((data: any) => {
       const mapped: ScheduleList = {};
-
       for (const prop of data) {
         if (!mapped[prop.section]) {
           mapped[prop.section] = prop;
@@ -97,6 +62,40 @@ export class ScheduleService {
       return mapped;
     }),
     tap((next: any) => this.store.set('schedule', next))
+  );
+
+  selected$: Observable<any> = this.section$.pipe(
+    tap((next: any) => this.store.set('selected', next))
+  );
+
+  list$: Observable<any> = this.section$.pipe(
+    map((value: any) => this.store.value[value.type]),
+    tap((next: any) => this.store.set('list', next))
+  );
+
+  items$: Observable<any> = this.itemList$.pipe(
+    withLatestFrom(this.section$),
+    map(([items, section]: any[]) => {
+      const { $key, ...data } = section.data;
+
+      const defaults: ScheduleItem = {
+        workouts: null,
+        meals: null,
+        section: section.section,
+        timestamp: new Date(section.day).getTime()
+      };
+
+      const payload = {
+        ...($key ? data : defaults),
+        ...items
+      };
+
+      if ($key) {
+        return this.updateSection($key, payload);
+      } else {
+        return this.createSection(payload);
+      }
+    })
   );
 
   constructor(
@@ -137,6 +136,14 @@ export class ScheduleService {
           .startAt(startAt)
           .endAt(endAt);
       })
-      .valueChanges();
+      .snapshotChanges()
+      .pipe(
+        map(items => {
+          const newItems = items.map(item => {
+            return { $key: item.key, ...item.payload.val() };
+          });
+          return newItems;
+        })
+      );
   }
 }

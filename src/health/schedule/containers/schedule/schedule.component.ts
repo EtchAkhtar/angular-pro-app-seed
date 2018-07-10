@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import {
   ScheduleService,
-  ScheduleItem
+  ScheduleList
 } from '../../../shared/services/schedule/schedule.service';
 
 import {
@@ -45,7 +45,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   open: boolean = false;
 
   date$: Observable<Date>;
-  schedule$: Observable<ScheduleItem[]>;
+  schedule$: Observable<ScheduleList>;
   selected$: Observable<any>;
   list$: Observable<Meal[] | Workout[]>;
   subscriptions: Subscription[];
@@ -58,10 +58,10 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.date$ = this.store.select<Date>('date');
-    this.schedule$ = this.store.select<ScheduleItem[]>('schedule');
+    this.schedule$ = this.store.select<ScheduleList>('schedule');
     this.selected$ = this.store.select<any>('selected');
     this.list$ = this.store.select<Meal[] | Workout[]>('list');
+    this.date$ = this.store.select<Date>('date');
 
     this.subscriptions = [
       this.scheduleService.schedule$.subscribe(),
