@@ -5,7 +5,7 @@ import { Store } from "store";
 
 import { AuthService } from "../../../../auth/shared/services/auth/auth.service";
 
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { tap, filter, map } from "rxjs/operators";
 
 export interface Meal {
@@ -18,9 +18,18 @@ export interface Meal {
 
 @Injectable()
 export class MealsService {
-  meals$: Observable<Meal[]> = this.db
+  meals$: Observable<any> = this.db
     .list(`meals/${this.uid}`)
-    .pipe(tap(next => this.store.set("meals", next)));
+    .snapshotChanges()
+    .pipe(
+      map(items => {
+        const newItems = items.map(item => {
+          return { $key: item.key, ...item.payload.val() };
+        });
+        return newItems;
+      }),
+      tap(next => this.store.set("meals", next))
+    );
 
   constructor(
     private store: Store,
@@ -34,7 +43,7 @@ export class MealsService {
 
   getMeal(key: string) {
     if (!key) {
-      return Observable.of({});
+      return of({});
     }
     return this.store.select<Meal[]>("meals").pipe(
       filter(Boolean),

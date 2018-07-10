@@ -5,7 +5,7 @@ import { Store } from "store";
 
 import { AuthService } from "../../../../auth/shared/services/auth/auth.service";
 
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { tap, filter, map } from "rxjs/operators";
 
 export interface Workout {
@@ -20,9 +20,18 @@ export interface Workout {
 
 @Injectable()
 export class WorkoutsService {
-  workouts$: Observable<Workout[]> = this.db
+  workouts$: Observable<any> = this.db
     .list(`workouts/${this.uid}`)
-    .pipe(tap(next => this.store.set("workouts", next)));
+    .snapshotChanges()
+    .pipe(
+      map(items => {
+        const newItems = items.map(item => {
+          return { $key: item.key, ...item.payload.val() };
+        });
+        return newItems;
+      }),
+      tap(next => this.store.set("workouts", next))
+    );
 
   constructor(
     private store: Store,
@@ -36,7 +45,7 @@ export class WorkoutsService {
 
   getWorkout(key: string) {
     if (!key) {
-      return Observable.of({});
+      return of({});
     }
     return this.store.select<Workout[]>("workouts").pipe(
       filter(Boolean),

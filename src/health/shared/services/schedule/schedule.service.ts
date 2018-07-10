@@ -57,7 +57,9 @@ export class ScheduleService {
     })
   );
 
-  selected$ = this.section$.do((next: any) => this.store.set("selected", next));
+  selected$ = this.section$.pipe(
+    tap((next: any) => this.store.set("selected", next))
+  );
 
   list$ = this.section$.pipe(
     map((value: any) => this.store.value[value.type]),
@@ -128,12 +130,13 @@ export class ScheduleService {
   }
 
   private getSchedule(startAt: number, endAt: number) {
-    return this.db.list(`schedule/${this.uid}`, {
-      query: {
-        orderByChild: "timestamp",
-        startAt,
-        endAt
-      }
-    });
+    return this.db
+      .list(`schedule/${this.uid}`, ref => {
+        return ref
+          .orderByChild("timestamp")
+          .startAt(startAt)
+          .endAt(endAt);
+      })
+      .valueChanges();
   }
 }

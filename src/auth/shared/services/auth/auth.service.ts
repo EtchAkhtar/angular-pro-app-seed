@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { AngularFireAuth, AUTH_PROVIDERS } from "angularfire2/auth";
+import { AngularFireAuth } from "angularfire2/auth";
 
 import { Store } from "store";
 
