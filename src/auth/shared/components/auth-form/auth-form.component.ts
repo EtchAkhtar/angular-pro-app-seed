@@ -1,9 +1,15 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy
+} from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
-  selector: 'auth-form',
-  styleUrls: ['auth-form.component.scss'],
+  selector: "auth-form",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ["auth-form.component.scss"],
   template: `
     <div class="auth-form">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -50,8 +56,8 @@ export class AuthFormComponent {
   @Output() submitted = new EventEmitter<FormGroup>();
 
   form: FormGroup = this.fb.group({
-    email: ['', Validators.email],
-    password: ['', Validators.required]
+    email: ["", Validators.email],
+    password: ["", Validators.required]
   });
 
   constructor(private fb: FormBuilder) {}
@@ -63,12 +69,12 @@ export class AuthFormComponent {
   }
 
   get passwordInvalid() {
-    const control = this.form.get('password');
-    return control.hasError('required') && control.touched;
+    const control = this.form.get("password");
+    return control.hasError("required") && control.touched;
   }
 
   get emailFormat() {
-    const control = this.form.get('email');
-    return control.hasError('email') && control.touched;
+    const control = this.form.get("email");
+    return control.hasError("email") && control.touched;
   }
 }
