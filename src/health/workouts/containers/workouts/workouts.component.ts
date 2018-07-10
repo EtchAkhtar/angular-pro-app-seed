@@ -1,18 +1,17 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import {
   Workout,
   WorkoutsService
-} from "../../../shared/services/workouts/workouts.service";
+} from '../../../shared/services/workouts/workouts.service';
 
-import { Store } from "store";
+import { Store } from 'store';
 
-import { Observable } from "rxjs/Observable";
-import { Subscription } from "rxjs/Subscription";
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
-  selector: "workouts",
-  styleUrls: ["workouts.component.scss"],
+  selector: 'workouts',
+  styleUrls: ['workouts.component.scss'],
   template: `
     <div class="workouts">
       <div class="workouts__title">
@@ -56,7 +55,7 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.workoutsService.workouts$.subscribe();
-    this.workouts$ = this.store.select<Workout[]>("workouts");
+    this.workouts$ = this.store.select<Workout[]>('workouts');
   }
 
   ngOnDestroy(): void {

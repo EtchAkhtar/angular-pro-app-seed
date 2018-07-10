@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { AngularFireDatabase } from "angularfire2/database";
+import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
 
-import { Store } from "store";
+import { Store } from 'store';
 
-import { AuthService } from "../../../../auth/shared/services/auth/auth.service";
+import { AuthService } from '../../../../auth/shared/services/auth/auth.service';
 
-import { Observable, of } from "rxjs";
-import { tap, filter, map } from "rxjs/operators";
+import { Observable, of } from 'rxjs';
+import { tap, filter, map } from 'rxjs/operators';
 
 export interface Workout {
   name: string;
@@ -30,7 +30,7 @@ export class WorkoutsService {
         });
         return newItems;
       }),
-      tap(next => this.store.set("workouts", next))
+      tap(next => this.store.set('workouts', next))
     );
 
   constructor(
@@ -47,7 +47,7 @@ export class WorkoutsService {
     if (!key) {
       return of({});
     }
-    return this.store.select<Workout[]>("workouts").pipe(
+    return this.store.select<Workout[]>('workouts').pipe(
       filter(Boolean),
       map(workouts => workouts.find((workout: Workout) => workout.$key === key))
     );

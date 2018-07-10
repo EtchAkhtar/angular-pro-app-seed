@@ -1,28 +1,27 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import {
   ScheduleService,
   ScheduleItem
-} from "../../../shared/services/schedule/schedule.service";
+} from '../../../shared/services/schedule/schedule.service';
 
 import {
   Meal,
   MealsService
-} from "../../../shared/services/meals/meals.service";
+} from '../../../shared/services/meals/meals.service';
 
 import {
   Workout,
   WorkoutsService
-} from "../../../shared/services/workouts/workouts.service";
+} from '../../../shared/services/workouts/workouts.service';
 
-import { Store } from "store";
+import { Store } from 'store';
 
-import { Observable } from "rxjs/Observable";
-import { Subscription } from "rxjs/Subscription";
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
-  selector: "schedule",
-  styleUrls: ["schedule.component.scss"],
+  selector: 'schedule',
+  styleUrls: ['schedule.component.scss'],
   template: `
     <div class="schedule">
       <schedule-calendar
@@ -59,10 +58,10 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.date$ = this.store.select<Date>("date");
-    this.schedule$ = this.store.select<ScheduleItem[]>("schedule");
-    this.selected$ = this.store.select<any>("selected");
-    this.list$ = this.store.select<Meal[] | Workout[]>("list");
+    this.date$ = this.store.select<Date>('date');
+    this.schedule$ = this.store.select<ScheduleItem[]>('schedule');
+    this.selected$ = this.store.select<any>('selected');
+    this.list$ = this.store.select<Meal[] | Workout[]>('list');
 
     this.subscriptions = [
       this.scheduleService.schedule$.subscribe(),

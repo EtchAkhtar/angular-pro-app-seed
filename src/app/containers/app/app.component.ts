@@ -1,19 +1,18 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Observable } from "rxjs/observable";
-import { Subscription } from "rxjs/Subscription";
+import { Observable, Subscription } from 'rxjs';
 
-import { Store } from "store";
+import { Store } from 'store';
 
 import {
   AuthService,
   User
-} from "../../../auth/shared/services/auth/auth.service";
+} from '../../../auth/shared/services/auth/auth.service';
 
 @Component({
-  selector: "app-root",
-  styleUrls: ["app.component.scss"],
+  selector: 'app-root',
+  styleUrls: ['app.component.scss'],
   template: `
     <div>
       <app-header
@@ -41,7 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.authService.auth$.subscribe();
-    this.user$ = this.store.select<User>("user");
+    this.user$ = this.store.select<User>('user');
   }
 
   ngOnDestroy(): void {
@@ -51,7 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
   async onLogout(): Promise<void> {
     try {
       await this.authService.logoutUser();
-      this.router.navigate(["/auth/login"]);
+      this.router.navigate(['/auth/login']);
     } catch (err) {
       // TODO
     }

@@ -1,12 +1,11 @@
-import { Observable } from "rxjs/Observable";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Observable, BehaviorSubject } from 'rxjs';
 
-import { User } from "./auth/shared/services/auth/auth.service";
-import { Meal } from "./health/shared/services/meals/meals.service";
-import { Workout } from "./health/shared/services/workouts/workouts.service";
-import { ScheduleItem } from "./health/shared/services/schedule/schedule.service";
+import { User } from './auth/shared/services/auth/auth.service';
+import { Meal } from './health/shared/services/meals/meals.service';
+import { Workout } from './health/shared/services/workouts/workouts.service';
+import { ScheduleItem } from './health/shared/services/schedule/schedule.service';
 
-import { pluck, distinctUntilChanged } from "rxjs/operators";
+import { pluck, distinctUntilChanged } from 'rxjs/operators';
 
 export interface State {
   user: User;

@@ -1,18 +1,17 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import {
   Meal,
   MealsService
-} from "../../../shared/services/meals/meals.service";
+} from '../../../shared/services/meals/meals.service';
 
-import { Store } from "store";
+import { Store } from 'store';
 
-import { Observable } from "rxjs/Observable";
-import { Subscription } from "rxjs/Subscription";
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
-  selector: "meals",
-  styleUrls: ["meals.component.scss"],
+  selector: 'meals',
+  styleUrls: ['meals.component.scss'],
   template: `
     <div class="meals">
       <div class="meals__title">
@@ -56,7 +55,7 @@ export class MealsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.mealsService.meals$.subscribe();
-    this.meals$ = this.store.select<Meal[]>("meals");
+    this.meals$ = this.store.select<Meal[]>('meals');
   }
 
   ngOnDestroy(): void {

@@ -36,7 +36,7 @@
     "raw-loader": "0.5.1",
     "rimraf": "2.6.2",
     "sass-loader": "7.0.3",
-    "typescript": "2.9.2",
+    "typescript": "2.7.2",
     "webpack": "4.15.1",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "3.1.4"
