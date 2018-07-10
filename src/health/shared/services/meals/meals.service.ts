@@ -1,15 +1,12 @@
-import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { Injectable } from "@angular/core";
+import { AngularFireDatabase } from "angularfire2/database";
 
-import { Store } from 'store';
+import { Store } from "store";
 
-import { AuthService } from '../../../../auth/shared/services/auth/auth.service';
+import { AuthService } from "../../../../auth/shared/services/auth/auth.service";
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
+import { Observable } from "rxjs";
+import { tap, filter, map } from "rxjs/operators";
 
 export interface Meal {
   name: string;
@@ -23,7 +20,7 @@ export interface Meal {
 export class MealsService {
   meals$: Observable<Meal[]> = this.db
     .list(`meals/${this.uid}`)
-    .do(next => this.store.set('meals', next));
+    .pipe(tap(next => this.store.set("meals", next)));
 
   constructor(
     private store: Store,
@@ -39,10 +36,10 @@ export class MealsService {
     if (!key) {
       return Observable.of({});
     }
-    return this.store
-      .select<Meal[]>('meals')
-      .filter(Boolean)
-      .map(meals => meals.find((meal: Meal) => meal.$key === key));
+    return this.store.select<Meal[]>("meals").pipe(
+      filter(Boolean),
+      map(meals => meals.find((meal: Meal) => meal.$key === key))
+    );
   }
 
   addMeal(meal: Meal) {

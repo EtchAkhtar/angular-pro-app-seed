@@ -1,18 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
 
 import {
   Workout,
   WorkoutsService
-} from '../../../shared/services/workouts/workouts.service';
+} from "../../../shared/services/workouts/workouts.service";
 
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/switchMap';
+import { Observable, Subscription } from "rxjs";
+import { switchMap } from "rxjs/operators";
 
 @Component({
-  selector: 'workout',
-  styleUrls: ['workout.component.scss'],
+  selector: "workout",
+  styleUrls: ["workout.component.scss"],
   template: `
     <div class="workout">
       <div class="workout__title">
@@ -55,8 +54,8 @@ export class WorkoutComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.workoutsService.workouts$.subscribe();
-    this.workout$ = this.route.params.switchMap(param =>
-      this.workoutsService.getWorkout(param.id)
+    this.workout$ = this.route.params.pipe(
+      switchMap(param => this.workoutsService.getWorkout(param.id))
     );
   }
 
@@ -82,6 +81,6 @@ export class WorkoutComponent implements OnInit, OnDestroy {
   }
 
   backToWorkouts() {
-    this.router.navigate(['workouts']);
+    this.router.navigate(["workouts"]);
   }
 }

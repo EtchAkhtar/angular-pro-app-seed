@@ -4,12 +4,12 @@ import {
   Output,
   ChangeDetectionStrategy,
   EventEmitter
-} from '@angular/core';
+} from "@angular/core";
 
 @Component({
-  selector: 'schedule-controls',
+  selector: "schedule-controls",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['schedule-controls.component.scss'],
+  styleUrls: ["schedule-controls.component.scss"],
   template: `
     <div class="controls">
       <button
@@ -17,7 +17,7 @@ import {
         (click)="moveDate(offset - 1)">
         <img src="/img/chevron-left.svg">
       </button>
-      <p>{{ selected | date: 'yMMMMd' }}</p>
+      <p>{{ selected | date: 'MMMM d, y' }}</p>
       <button
         type="button"
         (click)="moveDate(offset + 1)">

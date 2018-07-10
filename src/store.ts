@@ -1,13 +1,12 @@
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from "rxjs/Observable";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
-import 'rxjs/add/operator/pluck';
-import 'rxjs/add/operator/distinctUntilChanged';
+import { User } from "./auth/shared/services/auth/auth.service";
+import { Meal } from "./health/shared/services/meals/meals.service";
+import { Workout } from "./health/shared/services/workouts/workouts.service";
+import { ScheduleItem } from "./health/shared/services/schedule/schedule.service";
 
-import { User } from './auth/shared/services/auth/auth.service';
-import { Meal } from './health/shared/services/meals/meals.service';
-import { Workout } from './health/shared/services/workouts/workouts.service';
-import { ScheduleItem } from './health/shared/services/schedule/schedule.service';
+import { pluck, distinctUntilChanged } from "rxjs/operators";
 
 export interface State {
   user: User;
@@ -32,14 +31,14 @@ const state: State = {
 
 export class Store {
   private subject = new BehaviorSubject<State>(state);
-  private store = this.subject.asObservable().distinctUntilChanged();
+  private store = this.subject.asObservable().pipe(distinctUntilChanged());
 
   get value() {
     return this.subject.value;
   }
 
   select<T>(name: string): Observable<T> {
-    return this.store.pluck(name);
+    return this.store.pipe(pluck(name));
   }
 
   set(name: string, state: any) {

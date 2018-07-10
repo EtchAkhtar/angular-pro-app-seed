@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth, AUTH_PROVIDERS } from 'angularfire2/auth';
+import { Injectable } from "@angular/core";
+import { AngularFireAuth, AUTH_PROVIDERS } from "angularfire2/auth";
 
-import { Store } from 'store';
+import { Store } from "store";
 
-import 'rxjs/add/operator/do';
+import { tap } from "rxjs/operators";
 
 export interface User {
   email: string;
@@ -13,20 +13,22 @@ export interface User {
 
 @Injectable()
 export class AuthService {
-  auth$ = this.af.authState.do(next => {
-    if (!next) {
-      this.store.set('user', null);
-      return;
-    }
+  auth$ = this.af.authState.pipe(
+    tap(next => {
+      if (!next) {
+        this.store.set("user", null);
+        return;
+      }
 
-    const user: User = {
-      email: next.email,
-      uid: next.uid,
-      authenticated: true
-    };
+      const user: User = {
+        email: next.email,
+        uid: next.uid,
+        authenticated: true
+      };
 
-    this.store.set('user', user);
-  });
+      this.store.set("user", user);
+    })
+  );
 
   constructor(private af: AngularFireAuth, private store: Store) {}
 
