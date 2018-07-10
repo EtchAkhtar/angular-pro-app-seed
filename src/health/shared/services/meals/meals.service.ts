@@ -37,11 +37,11 @@ export class MealsService {
     private authService: AuthService
   ) {}
 
-  get uid() {
+  get uid(): string {
     return this.authService.user.uid;
   }
 
-  getMeal(key: string) {
+  getMeal(key: string): Observable<Meal | {}> {
     if (!key) {
       return of({});
     }
@@ -51,15 +51,15 @@ export class MealsService {
     );
   }
 
-  addMeal(meal: Meal) {
+  addMeal(meal: Meal): any {
     return this.db.list(`meals/${this.uid}`).push(meal);
   }
 
-  updateMeal(key: string, meal: Meal) {
+  updateMeal(key: string, meal: Meal): Promise<void> {
     return this.db.object(`meals/${this.uid}/${key}`).update(meal);
   }
 
-  removeMeal(key: string) {
+  removeMeal(key: string): Promise<void> {
     return this.db.list(`meals/${this.uid}`).remove(key);
   }
 }

@@ -5,15 +5,15 @@ import {
   OnInit,
   Output,
   EventEmitter
-} from '@angular/core';
+} from "@angular/core";
 
-import { Meal } from '../../../shared/services/meals/meals.service';
-import { Workout } from '../../../shared/services/workouts/workouts.service';
+import { Meal } from "../../../shared/services/meals/meals.service";
+import { Workout } from "../../../shared/services/workouts/workouts.service";
 
 @Component({
-  selector: 'schedule-assign',
+  selector: "schedule-assign",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['schedule-assign.component.scss'],
+  styleUrls: ["schedule-assign.component.scss"],
   template: `
     <div class="schedule-assign">
 
@@ -73,35 +73,35 @@ export class ScheduleAssignComponent implements OnInit {
 
   @Input() list: Meal[] | Workout[];
 
-  @Output() update = new EventEmitter<any>();
+  @Output() update: EventEmitter<any> = new EventEmitter<any>();
 
-  @Output() cancel = new EventEmitter<any>();
+  @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
 
   private selected: string[] = [];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.selected = [...this.section.assigned];
   }
 
-  getRoute(name: string) {
+  getRoute(name: string): any[] {
     return [`../${name}/new`];
   }
 
-  exists(name: string) {
+  exists(name: string): boolean {
     return !!~this.selected.indexOf(name);
   }
 
-  updateAssign() {
+  updateAssign(): void {
     this.update.emit({
       [this.section.type]: this.selected
     });
   }
 
-  cancelAssign() {
+  cancelAssign(): void {
     this.cancel.emit();
   }
 
-  toggleItem(name: string) {
+  toggleItem(name: string): void {
     if (this.exists(name)) {
       this.selected = this.selected.filter(item => item !== name);
     } else {

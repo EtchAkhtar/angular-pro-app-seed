@@ -4,14 +4,14 @@ import {
   Input,
   Output,
   EventEmitter
-} from '@angular/core';
+} from "@angular/core";
 
-import { ScheduleItem } from '../../../shared/services/schedule/schedule.service';
+import { ScheduleItem } from "../../../shared/services/schedule/schedule.service";
 
 @Component({
-  selector: 'schedule-section',
+  selector: "schedule-section",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['schedule-section.component.scss'],
+  styleUrls: ["schedule-section.component.scss"],
   template: `
     <div class="schedule-section">
 
@@ -56,7 +56,7 @@ export class ScheduleSectionComponent {
 
   @Input() section: ScheduleItem;
 
-  @Output() select = new EventEmitter<any>();
+  @Output() select: EventEmitter<any> = new EventEmitter<any>();
 
   onSelect(type: string, assigned: string[] = []) {
     const data = this.section;

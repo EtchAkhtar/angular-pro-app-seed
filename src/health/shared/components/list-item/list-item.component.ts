@@ -54,21 +54,21 @@ import {
 export class ListItemComponent {
   @Input() item: any;
 
-  @Output() remove = new EventEmitter<any>();
+  @Output() remove: EventEmitter<any> = new EventEmitter<any>();
 
   toggled: boolean = false;
 
   constructor() {}
 
-  toggle() {
+  toggle(): void {
     this.toggled = !this.toggled;
   }
 
-  removeItem() {
+  removeItem(): void {
     this.remove.emit(this.item);
   }
 
-  getRoute(item: any) {
+  getRoute(item: any): any[] {
     return [`../${item.ingredients ? "meals" : "workouts"}`, item.$key];
   }
 }

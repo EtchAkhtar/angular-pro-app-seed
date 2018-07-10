@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 
-import { AuthService } from '../../../shared/services/auth/auth.service';
+import { AuthService } from "../../../shared/services/auth/auth.service";
 
 @Component({
-  selector: 'login',
+  selector: "login",
   template: `
     <div>
       <auth-form (submitted)="loginUser($event)">
@@ -26,12 +26,12 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  async loginUser(event: FormGroup) {
+  async loginUser(event: FormGroup): Promise<void> {
     const { email, password } = event.value;
 
     try {
       await this.authService.loginUser(email, password);
-      this.router.navigate(['/']);
+      this.router.navigate(["/"]);
     } catch (err) {
       this.error = err.message;
     }

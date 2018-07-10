@@ -39,11 +39,11 @@ export class WorkoutsService {
     private authService: AuthService
   ) {}
 
-  get uid() {
+  get uid(): string {
     return this.authService.user.uid;
   }
 
-  getWorkout(key: string) {
+  getWorkout(key: string): Observable<Workout | {}> {
     if (!key) {
       return of({});
     }
@@ -53,15 +53,15 @@ export class WorkoutsService {
     );
   }
 
-  addWorkout(workout: Workout) {
+  addWorkout(workout: Workout): any {
     return this.db.list(`workouts/${this.uid}`).push(workout);
   }
 
-  updateWorkout(key: string, workout: Workout) {
+  updateWorkout(key: string, workout: Workout): Promise<void> {
     return this.db.object(`workouts/${this.uid}/${key}`).update(workout);
   }
 
-  removeWorkout(key: string) {
+  removeWorkout(key: string): Promise<void> {
     return this.db.list(`workouts/${this.uid}`).remove(key);
   }
 }

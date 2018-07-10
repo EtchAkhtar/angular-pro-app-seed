@@ -4,6 +4,7 @@ import { AngularFireAuth } from "angularfire2/auth";
 import { Store } from "store";
 
 import { tap } from "rxjs/operators";
+import { Observable } from "../../../../../node_modules/rxjs";
 
 export interface User {
   email: string;
@@ -13,7 +14,7 @@ export interface User {
 
 @Injectable()
 export class AuthService {
-  auth$ = this.af.authState.pipe(
+  auth$: Observable<firebase.User> = this.af.authState.pipe(
     tap(next => {
       if (!next) {
         this.store.set("user", null);
@@ -32,23 +33,23 @@ export class AuthService {
 
   constructor(private af: AngularFireAuth, private store: Store) {}
 
-  get user() {
+  get user(): any {
     return this.af.auth.currentUser;
   }
 
-  get authState() {
+  get authState(): Observable<firebase.User> {
     return this.af.authState;
   }
 
-  createUser(email: string, password: string) {
+  createUser(email: string, password: string): Promise<any> {
     return this.af.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  loginUser(email: string, password: string) {
+  loginUser(email: string, password: string): Promise<any> {
     return this.af.auth.signInWithEmailAndPassword(email, password);
   }
 
-  logoutUser() {
+  logoutUser(): Promise<void> {
     return this.af.auth.signOut();
   }
 }

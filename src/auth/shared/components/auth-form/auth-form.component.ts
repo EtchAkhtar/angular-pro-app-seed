@@ -53,7 +53,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
   `
 })
 export class AuthFormComponent {
-  @Output() submitted = new EventEmitter<FormGroup>();
+  @Output() submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   form: FormGroup = this.fb.group({
     email: ["", Validators.email],
@@ -62,18 +62,18 @@ export class AuthFormComponent {
 
   constructor(private fb: FormBuilder) {}
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.form.valid) {
       this.submitted.emit(this.form);
     }
   }
 
-  get passwordInvalid() {
+  get passwordInvalid(): boolean {
     const control = this.form.get("password");
     return control.hasError("required") && control.touched;
   }
 
-  get emailFormat() {
+  get emailFormat(): boolean {
     const control = this.form.get("email");
     return control.hasError("email") && control.touched;
   }

@@ -28,11 +28,11 @@ export interface ScheduleList {
 
 @Injectable()
 export class ScheduleService {
-  private date$ = new BehaviorSubject(new Date());
-  private section$ = new Subject();
-  private itemList$ = new Subject();
+  private date$: BehaviorSubject<Date> = new BehaviorSubject(new Date());
+  private section$: Subject<{}> = new Subject();
+  private itemList$: Subject<{}> = new Subject();
 
-  items$ = this.itemList$.pipe(
+  items$: Observable<any> = this.itemList$.pipe(
     withLatestFrom(this.section$),
     map(([items, section]: any[]) => {
       const id = section.data.$key;
@@ -57,11 +57,11 @@ export class ScheduleService {
     })
   );
 
-  selected$ = this.section$.pipe(
+  selected$: Observable<any> = this.section$.pipe(
     tap((next: any) => this.store.set("selected", next))
   );
 
-  list$ = this.section$.pipe(
+  list$: Observable<any> = this.section$.pipe(
     map((value: any) => this.store.value[value.type]),
     tap((next: any) => this.store.set("list", next))
   );
@@ -105,31 +105,31 @@ export class ScheduleService {
     private authService: AuthService
   ) {}
 
-  get uid() {
+  get uid(): string {
     return this.authService.user.uid;
   }
 
-  updateItems(items: string[]) {
+  updateItems(items: string[]): void {
     this.itemList$.next(items);
   }
 
-  updateDate(date: Date) {
+  updateDate(date: Date): void {
     this.date$.next(date);
   }
 
-  selectSection(event: any) {
+  selectSection(event: any): void {
     this.section$.next(event);
   }
 
-  private updateSection(key: string, payload: ScheduleItem) {
+  private updateSection(key: string, payload: ScheduleItem): Promise<void> {
     return this.db.object(`schedule/${this.uid}/${key}`).update(payload);
   }
 
-  private createSection(payload: ScheduleItem) {
+  private createSection(payload: ScheduleItem): any {
     return this.db.list(`schedule/${this.uid}`).push(payload);
   }
 
-  private getSchedule(startAt: number, endAt: number) {
+  private getSchedule(startAt: number, endAt: number): Observable<any> {
     return this.db
       .list(`schedule/${this.uid}`, ref => {
         return ref

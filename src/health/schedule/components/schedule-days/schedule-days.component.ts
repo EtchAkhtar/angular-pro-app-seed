@@ -4,12 +4,12 @@ import {
   ChangeDetectionStrategy,
   Output,
   EventEmitter
-} from '@angular/core';
+} from "@angular/core";
 
 @Component({
-  selector: 'schedule-days',
+  selector: "schedule-days",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['schedule-days.component.scss'],
+  styleUrls: ["schedule-days.component.scss"],
   template: `
     <div class="days">
       <button
@@ -28,11 +28,11 @@ import {
 export class ScheduleDaysComponent {
   @Input() selected: number;
 
-  @Output() select = new EventEmitter<number>();
+  @Output() select: EventEmitter<number> = new EventEmitter<number>();
 
-  days = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+  days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
-  selectDay(index: number) {
+  selectDay(index: number): void {
     this.select.emit(index);
   }
 }

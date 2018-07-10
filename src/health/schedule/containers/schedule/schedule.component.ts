@@ -1,28 +1,28 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from "@angular/core";
 
 import {
   ScheduleService,
   ScheduleItem
-} from '../../../shared/services/schedule/schedule.service';
+} from "../../../shared/services/schedule/schedule.service";
 
 import {
   Meal,
   MealsService
-} from '../../../shared/services/meals/meals.service';
+} from "../../../shared/services/meals/meals.service";
 
 import {
   Workout,
   WorkoutsService
-} from '../../../shared/services/workouts/workouts.service';
+} from "../../../shared/services/workouts/workouts.service";
 
-import { Store } from 'store';
+import { Store } from "store";
 
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
-  selector: 'schedule',
-  styleUrls: ['schedule.component.scss'],
+  selector: "schedule",
+  styleUrls: ["schedule.component.scss"],
   template: `
     <div class="schedule">
       <schedule-calendar
@@ -58,11 +58,11 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     private workoutsService: WorkoutsService
   ) {}
 
-  ngOnInit() {
-    this.date$ = this.store.select<Date>('date');
-    this.schedule$ = this.store.select<ScheduleItem[]>('schedule');
-    this.selected$ = this.store.select<any>('selected');
-    this.list$ = this.store.select<Meal[] | Workout[]>('list');
+  ngOnInit(): void {
+    this.date$ = this.store.select<Date>("date");
+    this.schedule$ = this.store.select<ScheduleItem[]>("schedule");
+    this.selected$ = this.store.select<any>("selected");
+    this.list$ = this.store.select<Meal[] | Workout[]>("list");
 
     this.subscriptions = [
       this.scheduleService.schedule$.subscribe(),
@@ -74,25 +74,25 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     ];
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  changeDate(date: Date) {
+  changeDate(date: Date): void {
     this.scheduleService.updateDate(date);
   }
 
-  changeSection(event: any) {
+  changeSection(event: any): void {
     this.open = true;
     this.scheduleService.selectSection(event);
   }
 
-  assignItem(items: string[]) {
+  assignItem(items: string[]): void {
     this.scheduleService.updateItems(items);
     this.closeAssign();
   }
 
-  closeAssign() {
+  closeAssign(): void {
     this.open = false;
   }
 }

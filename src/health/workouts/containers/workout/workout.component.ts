@@ -43,7 +43,7 @@ import { switchMap } from "rxjs/operators";
   `
 })
 export class WorkoutComponent implements OnInit, OnDestroy {
-  workout$: Observable<Workout>;
+  workout$: Observable<Workout | {}>;
   subscription: Subscription;
 
   constructor(
@@ -52,35 +52,35 @@ export class WorkoutComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscription = this.workoutsService.workouts$.subscribe();
     this.workout$ = this.route.params.pipe(
       switchMap(param => this.workoutsService.getWorkout(param.id))
     );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe;
   }
 
-  async addWorkout(event: Workout) {
+  async addWorkout(event: Workout): Promise<void> {
     await this.workoutsService.addWorkout(event);
     this.backToWorkouts();
   }
 
-  async updateWorkout(event: Workout) {
+  async updateWorkout(event: Workout): Promise<void> {
     const key = this.route.snapshot.params.id; // or event.$key
     await this.workoutsService.updateWorkout(key, event);
     this.backToWorkouts();
   }
 
-  async removeWorkout(event: Workout) {
+  async removeWorkout(event: Workout): Promise<void> {
     const key = this.route.snapshot.params.id;
     await this.workoutsService.removeWorkout(key);
     this.backToWorkouts();
   }
 
-  backToWorkouts() {
+  backToWorkouts(): void {
     this.router.navigate(["workouts"]);
   }
 }

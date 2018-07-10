@@ -30,11 +30,11 @@ import {
 export class ScheduleControlsComponent {
   @Input() selected: Date;
 
-  @Output() move = new EventEmitter<number>();
+  @Output() move: EventEmitter<number> = new EventEmitter<number>();
 
   offset = 0;
 
-  moveDate(offset: number) {
+  moveDate(offset: number): void {
     this.offset = offset;
     this.move.emit(offset);
   }
