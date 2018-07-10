@@ -5,15 +5,15 @@ import {
   OnInit,
   Output,
   EventEmitter
-} from "@angular/core";
+} from '@angular/core';
 
-import { Meal } from "../../../shared/services/meals/meals.service";
-import { Workout } from "../../../shared/services/workouts/workouts.service";
+import { Meal } from '../../../shared/services/meals/meals.service';
+import { Workout } from '../../../shared/services/workouts/workouts.service';
 
 @Component({
-  selector: "schedule-assign",
+  selector: 'schedule-assign',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ["schedule-assign.component.scss"],
+  styleUrls: ['schedule-assign.component.scss'],
   template: `
     <div class="schedule-assign">
 

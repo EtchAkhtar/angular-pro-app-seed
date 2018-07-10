@@ -6,21 +6,21 @@ import {
   Input,
   OnChanges,
   SimpleChanges
-} from "@angular/core";
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
   FormGroup,
   Validators,
   FormControl
-} from "@angular/forms";
+} from '@angular/forms';
 
-import { Workout } from "../../../shared/services/workouts/workouts.service";
+import { Workout } from '../../../shared/services/workouts/workouts.service';
 
 @Component({
-  selector: "workout-form",
+  selector: 'workout-form',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ["workout-form.component.scss"],
+  styleUrls: ['workout-form.component.scss'],
   template: `
     <div class="workout-form">
       <form [formGroup]="form">
@@ -142,8 +142,8 @@ export class WorkoutFormComponent implements OnChanges {
   exists: boolean = false;
 
   form: FormGroup = this.fb.group({
-    name: ["", Validators.required],
-    type: "strength",
+    name: ['', Validators.required],
+    type: 'strength',
     strength: this.fb.group({
       reps: 0,
       sets: 0,
@@ -160,7 +160,7 @@ export class WorkoutFormComponent implements OnChanges {
   get placeholder(): string {
     return `
       e.g. ${
-        this.form.get("type").value === "strength" ? "Benchpress" : "Treadmill"
+        this.form.get('type').value === 'strength' ? 'Benchpress' : 'Treadmill'
       }
     `;
   }
@@ -178,8 +178,8 @@ export class WorkoutFormComponent implements OnChanges {
   }
 
   get required(): boolean {
-    const control = this.form.get("name");
-    return control.hasError("required") && control.touched;
+    const control = this.form.get('name');
+    return control.hasError('required') && control.touched;
   }
 
   createWorkout(): void {

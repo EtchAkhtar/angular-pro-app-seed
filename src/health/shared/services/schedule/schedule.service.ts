@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { AngularFireDatabase } from "angularfire2/database";
+import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
 
-import { Store } from "store";
+import { Store } from 'store';
 
-import { AuthService } from "../../../../auth/shared/services/auth/auth.service";
-import { Meal } from "../meals/meals.service";
-import { Workout } from "../workouts/workouts.service";
+import { AuthService } from '../../../../auth/shared/services/auth/auth.service';
+import { Meal } from '../meals/meals.service';
+import { Workout } from '../workouts/workouts.service';
 
-import { Observable, BehaviorSubject, Subject } from "rxjs";
-import { tap, map, switchMap, withLatestFrom } from "rxjs/operators";
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { tap, map, switchMap, withLatestFrom } from 'rxjs/operators';
 
 export interface ScheduleItem {
   meals: Meal[];
@@ -58,16 +58,16 @@ export class ScheduleService {
   );
 
   selected$: Observable<any> = this.section$.pipe(
-    tap((next: any) => this.store.set("selected", next))
+    tap((next: any) => this.store.set('selected', next))
   );
 
   list$: Observable<any> = this.section$.pipe(
     map((value: any) => this.store.value[value.type]),
-    tap((next: any) => this.store.set("list", next))
+    tap((next: any) => this.store.set('list', next))
   );
 
   schedule$: Observable<ScheduleItem[]> = this.date$.pipe(
-    tap((next: any) => this.store.set("date", next)),
+    tap((next: any) => this.store.set('date', next)),
     map((day: Date) => {
       const startAt = new Date(
         day.getFullYear(),
@@ -96,7 +96,7 @@ export class ScheduleService {
 
       return mapped;
     }),
-    tap((next: any) => this.store.set("schedule", next))
+    tap((next: any) => this.store.set('schedule', next))
   );
 
   constructor(
@@ -133,7 +133,7 @@ export class ScheduleService {
     return this.db
       .list(`schedule/${this.uid}`, ref => {
         return ref
-          .orderByChild("timestamp")
+          .orderByChild('timestamp')
           .startAt(startAt)
           .endAt(endAt);
       })

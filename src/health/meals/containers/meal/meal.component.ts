@@ -1,17 +1,17 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import {
   Meal,
   MealsService
-} from "../../../shared/services/meals/meals.service";
+} from '../../../shared/services/meals/meals.service';
 
-import { Observable, Subscription } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import { Observable, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: "meal",
-  styleUrls: ["meal.component.scss"],
+  selector: 'meal',
+  styleUrls: ['meal.component.scss'],
   template: `
     <div class="meal">
       <div class="meal__title">
@@ -81,6 +81,6 @@ export class MealComponent implements OnInit, OnDestroy {
   }
 
   backToMeals(): void {
-    this.router.navigate(["meals"]);
+    this.router.navigate(['meals']);
   }
 }

@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { AngularFireDatabase } from "angularfire2/database";
+import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
 
-import { Store } from "store";
+import { Store } from 'store';
 
-import { AuthService } from "../../../../auth/shared/services/auth/auth.service";
+import { AuthService } from '../../../../auth/shared/services/auth/auth.service';
 
-import { Observable, of } from "rxjs";
-import { tap, filter, map } from "rxjs/operators";
+import { Observable, of } from 'rxjs';
+import { tap, filter, map } from 'rxjs/operators';
 
 export interface Meal {
   name: string;
@@ -28,7 +28,7 @@ export class MealsService {
         });
         return newItems;
       }),
-      tap(next => this.store.set("meals", next))
+      tap(next => this.store.set('meals', next))
     );
 
   constructor(
@@ -45,7 +45,7 @@ export class MealsService {
     if (!key) {
       return of({});
     }
-    return this.store.select<Meal[]>("meals").pipe(
+    return this.store.select<Meal[]>('meals').pipe(
       filter(Boolean),
       map(meals => meals.find((meal: Meal) => meal.$key === key))
     );

@@ -5,17 +5,17 @@ import {
   EventEmitter,
   OnChanges,
   ChangeDetectionStrategy
-} from "@angular/core";
+} from '@angular/core';
 
 import {
   ScheduleItem,
   ScheduleList
-} from "../../../shared/services/schedule/schedule.service";
+} from '../../../shared/services/schedule/schedule.service';
 
 @Component({
-  selector: "schedule-calendar",
+  selector: 'schedule-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ["schedule-calendar.component.scss"],
+  styleUrls: ['schedule-calendar.component.scss'],
   template: `
     <div class="calendar">
       <schedule-controls
@@ -54,10 +54,10 @@ export class ScheduleCalendarComponent implements OnChanges {
   selectedWeek: Date;
 
   sections = [
-    { key: "morning", name: "Morning" },
-    { key: "lunch", name: "Lunch" },
-    { key: "evening", name: "Evening" },
-    { key: "snacks", name: "Snacks and Drinks" }
+    { key: 'morning', name: 'Morning' },
+    { key: 'lunch', name: 'Lunch' },
+    { key: 'evening', name: 'Evening' },
+    { key: 'snacks', name: 'Snacks and Drinks' }
   ];
 
   constructor() {}

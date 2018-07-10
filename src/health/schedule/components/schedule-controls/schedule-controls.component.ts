@@ -4,12 +4,12 @@ import {
   Output,
   ChangeDetectionStrategy,
   EventEmitter
-} from "@angular/core";
+} from '@angular/core';
 
 @Component({
-  selector: "schedule-controls",
+  selector: 'schedule-controls',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ["schedule-controls.component.scss"],
+  styleUrls: ['schedule-controls.component.scss'],
   template: `
     <div class="controls">
       <button

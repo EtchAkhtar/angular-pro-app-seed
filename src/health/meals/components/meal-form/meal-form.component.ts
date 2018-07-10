@@ -6,21 +6,21 @@ import {
   Input,
   OnChanges,
   SimpleChanges
-} from "@angular/core";
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
   FormGroup,
   Validators,
   FormControl
-} from "@angular/forms";
+} from '@angular/forms';
 
-import { Meal } from "../../../shared/services/meals/meals.service";
+import { Meal } from '../../../shared/services/meals/meals.service';
 
 @Component({
-  selector: "meal-form",
+  selector: 'meal-form',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ["meal-form.component.scss"],
+  styleUrls: ['meal-form.component.scss'],
   template: `
     <div class="meal-form">
       <form [formGroup]="form">
@@ -123,8 +123,8 @@ export class MealFormComponent implements OnChanges {
   exists: boolean = false;
 
   form: FormGroup = this.fb.group({
-    name: ["", Validators.required],
-    ingredients: this.fb.array([""])
+    name: ['', Validators.required],
+    ingredients: this.fb.array([''])
   });
 
   constructor(private fb: FormBuilder) {}
@@ -156,16 +156,16 @@ export class MealFormComponent implements OnChanges {
   }
 
   get required(): boolean {
-    const control = this.form.get("name");
-    return control.hasError("required") && control.touched;
+    const control = this.form.get('name');
+    return control.hasError('required') && control.touched;
   }
 
   get ingredients(): FormArray {
-    return this.form.get("ingredients") as FormArray;
+    return this.form.get('ingredients') as FormArray;
   }
 
   addIngredient(): void {
-    this.ingredients.push(new FormControl(""));
+    this.ingredients.push(new FormControl(''));
   }
 
   removeIngredient(index: number): void {

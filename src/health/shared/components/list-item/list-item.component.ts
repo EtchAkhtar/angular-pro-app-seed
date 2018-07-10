@@ -4,12 +4,12 @@ import {
   ChangeDetectionStrategy,
   Output,
   EventEmitter
-} from "@angular/core";
+} from '@angular/core';
 
 @Component({
-  selector: "list-item",
+  selector: 'list-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ["list-item.component.scss"],
+  styleUrls: ['list-item.component.scss'],
   template: `
     <div class="list-item">
       <a [routerLink]="getRoute(item)">
@@ -69,6 +69,6 @@ export class ListItemComponent {
   }
 
   getRoute(item: any): any[] {
-    return [`../${item.ingredients ? "meals" : "workouts"}`, item.$key];
+    return [`../${item.ingredients ? 'meals' : 'workouts'}`, item.$key];
   }
 }

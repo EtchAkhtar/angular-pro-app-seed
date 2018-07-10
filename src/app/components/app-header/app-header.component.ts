@@ -4,14 +4,14 @@ import {
   Output,
   EventEmitter,
   ChangeDetectionStrategy
-} from "@angular/core";
+} from '@angular/core';
 
-import { User } from "../../../auth/shared/services/auth/auth.service";
+import { User } from '../../../auth/shared/services/auth/auth.service';
 
 @Component({
-  selector: "app-header",
+  selector: 'app-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ["app-header.component.scss"],
+  styleUrls: ['app-header.component.scss'],
   template: `
     <div class="app-header">
       <div class="wrapper">

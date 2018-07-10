@@ -1,5 +1,5 @@
-import { Component, forwardRef, ChangeDetectionStrategy } from "@angular/core";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Component, forwardRef, ChangeDetectionStrategy } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const TYPE_CONTROL_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -8,10 +8,10 @@ export const TYPE_CONTROL_ACCESSOR = {
 };
 
 @Component({
-  selector: "workout-type",
+  selector: 'workout-type',
   providers: [TYPE_CONTROL_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ["workout-type.component.scss"],
+  styleUrls: ['workout-type.component.scss'],
   template: `
     <div class="workout-type">
       <div
@@ -26,7 +26,7 @@ export const TYPE_CONTROL_ACCESSOR = {
   `
 })
 export class WorkoutTypeComponent implements ControlValueAccessor {
-  selectors = ["strength", "endurance"];
+  selectors = ['strength', 'endurance'];
 
   value: string;
 

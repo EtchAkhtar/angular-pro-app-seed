@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { AngularFireAuth } from "angularfire2/auth";
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
 
-import { Store } from "store";
+import { Store } from 'store';
 
-import { tap } from "rxjs/operators";
-import { Observable } from "../../../../../node_modules/rxjs";
+import { tap } from 'rxjs/operators';
+import { Observable } from '../../../../../node_modules/rxjs';
 
 export interface User {
   email: string;
@@ -17,7 +17,7 @@ export class AuthService {
   auth$: Observable<firebase.User> = this.af.authState.pipe(
     tap(next => {
       if (!next) {
-        this.store.set("user", null);
+        this.store.set('user', null);
         return;
       }
 
@@ -27,7 +27,7 @@ export class AuthService {
         authenticated: true
       };
 
-      this.store.set("user", user);
+      this.store.set('user', user);
     })
   );
 

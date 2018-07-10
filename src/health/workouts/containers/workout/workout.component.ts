@@ -1,17 +1,17 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import {
   Workout,
   WorkoutsService
-} from "../../../shared/services/workouts/workouts.service";
+} from '../../../shared/services/workouts/workouts.service';
 
-import { Observable, Subscription } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import { Observable, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: "workout",
-  styleUrls: ["workout.component.scss"],
+  selector: 'workout',
+  styleUrls: ['workout.component.scss'],
   template: `
     <div class="workout">
       <div class="workout__title">
@@ -81,6 +81,6 @@ export class WorkoutComponent implements OnInit, OnDestroy {
   }
 
   backToWorkouts(): void {
-    this.router.navigate(["workouts"]);
+    this.router.navigate(['workouts']);
   }
 }
