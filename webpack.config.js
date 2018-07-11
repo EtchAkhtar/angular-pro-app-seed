@@ -33,7 +33,7 @@ const plugins = [
   new HtmlWebpackHarddiskPlugin()
 ];
 
-const sharedOutput = {
+let output = {
   publicPath: paths.urlPrefix,
   path: path.resolve(__dirname, paths.build)
 };
@@ -57,7 +57,7 @@ if (process.env.NODE_ENV === 'production') {
   );
 
   output = {
-    ...sharedOutput,
+    ...output,
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name]-chunk.[chunkhash].js'
   };
@@ -80,7 +80,7 @@ if (process.env.NODE_ENV === 'production') {
   );
 
   output = {
-    ...sharedOutput,
+    ...output,
     filename: '[name].js',
     chunkFilename: '[name]-chunk.js'
   };
