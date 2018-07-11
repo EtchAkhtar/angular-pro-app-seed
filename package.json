@@ -7,7 +7,7 @@
     "build:production": "cross-env NODE_ENV=production webpack -p",
     "build:dev:serve": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
     "build:dev:watch": "cross-env NODE_ENV=development webpack --watch",
-    "clean": "rimraf build",
+    "clean": "rimraf web/dist",
     "build": "npm run clean && npm run build:production",
     "serve": "npm run clean && npm run build:dev:serve",
     "watch": "npm run clean && npm run build:dev:watch"

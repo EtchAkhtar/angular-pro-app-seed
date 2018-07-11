@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const typescript = require('typescript');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
 const rules = [
@@ -54,7 +53,7 @@ module.exports = {
   cache: true,
   context: __dirname,
   devServer: {
-    contentBase: __dirname,
+    contentBase: path.join(__dirname, 'web'),
     historyApiFallback: true,
     stats: {
       chunks: false,
@@ -67,7 +66,7 @@ module.exports = {
       modules: false,
       warnings: false
     },
-    publicPath: '/build/',
+    publicPath: '/dist/',
     port: 3000
   },
   devtool: 'sourcemap',
@@ -77,8 +76,8 @@ module.exports = {
   output: {
     filename: '[name].js',
     chunkFilename: '[name]-chunk.js',
-    publicPath: '/build/',
-    path: path.resolve(__dirname, 'build')
+    publicPath: '/dist/',
+    path: path.resolve(__dirname, 'web/dist')
   },
   node: {
     console: false,
