@@ -26,6 +26,7 @@ npm-debug.log
 
 # Build
 web/dist
+web/index.html
 vendor/*-manifest.json
 
 # Docs

@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const paths = {
   build: 'web/dist',
@@ -20,7 +21,12 @@ const plugins = [
       NODE_ENV: JSON.stringify(process.env.NODE_ENV)
     }
   }),
-  new CleanWebpackPlugin([paths.build])
+  new CleanWebpackPlugin([paths.build]),
+  new HtmlWebpackPlugin({
+    chunksSortMode: 'none',
+    template: './templates/index.html',
+    filename: '../index.html'
+  })
 ];
 
 if (process.env.NODE_ENV === 'production') {
@@ -103,7 +109,7 @@ module.exports = {
   },
   plugins,
   optimization: {
-    runtimeChunk: 'single',
+    //runtimeChunk: 'single',
     splitChunks: {
       cacheGroups: {
         vendor: {
