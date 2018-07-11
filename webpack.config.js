@@ -3,9 +3,11 @@ const webpack = require('webpack');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
 const paths = {
   build: 'web/dist',
+  entry: 'web/index.html',
   urlPrefix: '/dist/'
 };
 
@@ -21,19 +23,27 @@ const plugins = [
       NODE_ENV: JSON.stringify(process.env.NODE_ENV)
     }
   }),
-  new CleanWebpackPlugin([paths.build]),
+  new CleanWebpackPlugin([paths.build, paths.entry]),
   new HtmlWebpackPlugin({
     chunksSortMode: 'none',
     template: './templates/index.html',
-    filename: '../index.html'
-  })
+    filename: path.resolve(__dirname, paths.entry),
+    alwaysWriteToDisk: true
+  }),
+  new HtmlWebpackHarddiskPlugin()
 ];
+
+const sharedOutput = {
+  publicPath: paths.urlPrefix,
+  path: path.resolve(__dirname, paths.build)
+};
 
 if (process.env.NODE_ENV === 'production') {
   rules.push({
     test: /\.ts$/,
     loaders: ['@ngtools/webpack']
   });
+
   plugins.push(
     new AngularCompilerPlugin({
       tsConfigPath: './tsconfig.json',
@@ -45,6 +55,12 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.HashedModuleIdsPlugin()
   );
+
+  output = {
+    ...sharedOutput,
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name]-chunk.[chunkhash].js'
+  };
 } else {
   rules.push({
     test: /\.ts$/,
@@ -54,6 +70,7 @@ if (process.env.NODE_ENV === 'production') {
       'angular2-template-loader'
     ]
   });
+
   plugins.push(
     new webpack.NamedModulesPlugin(),
     new webpack.ContextReplacementPlugin(
@@ -61,6 +78,12 @@ if (process.env.NODE_ENV === 'production') {
       path.resolve(__dirname, './notfound')
     )
   );
+
+  output = {
+    ...sharedOutput,
+    filename: '[name].js',
+    chunkFilename: '[name]-chunk.js'
+  };
 }
 
 module.exports = {
@@ -87,12 +110,7 @@ module.exports = {
   entry: {
     app: ['zone.js/dist/zone', './src/main.ts']
   },
-  output: {
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name]-chunk.[chunkhash].js',
-    publicPath: paths.urlPrefix,
-    path: path.resolve(__dirname, paths.build)
-  },
+  output,
   node: {
     console: false,
     global: true,
