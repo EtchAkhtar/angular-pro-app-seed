@@ -1,6 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const paths = {
+  build: 'web/dist',
+  urlPrefix: '/dist/'
+};
 
 const rules = [
   { test: /\.html$/, loader: 'html-loader' },
@@ -13,7 +19,8 @@ const plugins = [
     'process.env': {
       NODE_ENV: JSON.stringify(process.env.NODE_ENV)
     }
-  })
+  }),
+  new CleanWebpackPlugin([paths.build])
 ];
 
 if (process.env.NODE_ENV === 'production') {
@@ -29,7 +36,8 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false
-    })
+    }),
+    new webpack.HashedModuleIdsPlugin()
   );
 } else {
   rules.push({
@@ -66,7 +74,7 @@ module.exports = {
       modules: false,
       warnings: false
     },
-    publicPath: '/dist/',
+    publicPath: paths.urlPrefix,
     port: 3000
   },
   devtool: 'sourcemap',
@@ -74,10 +82,10 @@ module.exports = {
     app: ['zone.js/dist/zone', './src/main.ts']
   },
   output: {
-    filename: '[name].js',
-    chunkFilename: '[name]-chunk.js',
-    publicPath: '/dist/',
-    path: path.resolve(__dirname, 'web/dist')
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name]-chunk.[chunkhash].js',
+    publicPath: paths.urlPrefix,
+    path: path.resolve(__dirname, paths.build)
   },
   node: {
     console: false,
@@ -93,5 +101,17 @@ module.exports = {
     extensions: ['.ts', '.js'],
     modules: ['src', 'node_modules']
   },
-  plugins
+  plugins,
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
+  }
 };

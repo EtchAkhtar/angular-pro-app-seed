@@ -7,10 +7,9 @@
     "build:production": "cross-env NODE_ENV=production webpack -p",
     "build:dev:serve": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
     "build:dev:watch": "cross-env NODE_ENV=development webpack --watch",
-    "clean": "rimraf web/dist",
-    "build": "npm run clean && npm run build:production",
-    "serve": "npm run clean && npm run build:dev:serve",
-    "watch": "npm run clean && npm run build:dev:watch"
+    "build": "npm run build:production",
+    "serve": "npm run build:dev:serve",
+    "watch": "npm run build:dev:watch"
   },
   "devDependencies": {
     "@angular/cli": "^6.0.8",
@@ -24,6 +23,7 @@
     "angular-router-loader": "0.8.5",
     "angular2-template-loader": "0.6.2",
     "awesome-typescript-loader": "5.2.0",
+    "clean-webpack-plugin": "^0.1.19",
     "cross-env": "5.2.0",
     "file-loader": "1.1.11",
     "html-loader": "0.5.5",
@@ -36,7 +36,6 @@
     "karma-webpack": "3.0.0",
     "node-sass": "4.9.2",
     "raw-loader": "0.5.1",
-    "rimraf": "2.6.2",
     "sass-loader": "7.0.3",
     "typescript": "2.7.2",
     "webpack": "4.15.1",
