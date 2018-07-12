@@ -37,12 +37,19 @@ export const ROUTES: Routes = [
 ];
 
 export const firebaseConfig: FirebaseAppConfig = {
-  apiKey: 'AIzaSyB21UPOlj4Bd0gbZ0zFfQyCxcuRLJBbIQQ',
-  authDomain: 'ultimate-angular-fitness-d38d9.firebaseapp.com',
-  databaseURL: 'https://ultimate-angular-fitness-d38d9.firebaseio.com',
-  projectId: 'ultimate-angular-fitness-d38d9',
-  storageBucket: 'ultimate-angular-fitness-d38d9.appspot.com',
-  messagingSenderId: '499907024865'
+  apiKey:
+    process.env.firebase_apiKey || 'AIzaSyB21UPOlj4Bd0gbZ0zFfQyCxcuRLJBbIQQ',
+  authDomain:
+    process.env.firebase_authDomain ||
+    'ultimate-angular-fitness-d38d9.firebaseapp.com',
+  databaseURL:
+    process.env.firebase_databaseURL ||
+    'https://ultimate-angular-fitness-d38d9.firebaseio.com',
+  projectId: process.env.firebase_projectId || 'ultimate-angular-fitness-d38d9',
+  storageBucket:
+    process.env.firebase_storageBucket ||
+    'ultimate-angular-fitness-d38d9.appspot.com',
+  messagingSenderId: process.env.firebase_messageSenderId || '499907024865'
 };
 
 @NgModule({
