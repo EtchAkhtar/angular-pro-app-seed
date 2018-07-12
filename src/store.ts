@@ -10,7 +10,9 @@ import { pluck, distinctUntilChanged } from 'rxjs/operators';
 export interface State {
   user: User;
   meals: Meal[];
+  mealsRetrieved: boolean;
   workouts: Workout[];
+  workoutsRetrieved: boolean;
   date: Date;
   schedule: ScheduleItem[];
   selected: any;
@@ -21,7 +23,9 @@ export interface State {
 const state: State = {
   user: undefined,
   meals: undefined,
+  mealsRetrieved: undefined,
   workouts: undefined,
+  workoutsRetrieved: undefined,
   date: undefined,
   schedule: undefined,
   selected: undefined,

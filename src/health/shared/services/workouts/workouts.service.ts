@@ -30,7 +30,10 @@ export class WorkoutsService {
         });
         return newItems;
       }),
-      tap(next => this.store.set('workouts', next))
+      tap(next => {
+        this.store.set('workouts', next);
+        this.store.set('workoutsRetrieved', true);
+      })
     );
 
   constructor(

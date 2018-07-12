@@ -28,7 +28,10 @@ export class MealsService {
         });
         return newItems;
       }),
-      tap(next => this.store.set('meals', next))
+      tap(next => {
+        this.store.set('meals', next);
+        this.store.set('mealsRetrieved', true);
+      })
     );
 
   constructor(

@@ -6,6 +6,8 @@ import {
   WorkoutsService
 } from '../../../shared/services/workouts/workouts.service';
 
+import { Store } from 'store';
+
 import { Observable, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -36,27 +38,35 @@ import { switchMap } from 'rxjs/operators';
       <ng-template #loading>
         <div class="message">
           <img src="/img/loading.svg">
-          Fetching workout...
+          <span *ngIf="workoutsRetrieved$ | async; else notRetrieved;">
+            Workout not found
+          </span>
+          <ng-template #notRetrieved>
+            Fetching workout...
+          </ng-template>
         </div>
-      </ng-template>
-    </div>
+      </ng-template>    </div>
   `
 })
 export class WorkoutComponent implements OnInit, OnDestroy {
   workout$: Observable<Workout | {}>;
+  workoutsRetrieved$: Observable<boolean>;
   subscription: Subscription;
 
   constructor(
     private workoutsService: WorkoutsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.workoutsService.workouts$.subscribe();
     this.workout$ = this.route.params.pipe(
       switchMap(param => this.workoutsService.getWorkout(param.id))
     );
+    this.workoutsRetrieved$ = this.store.select<boolean>('workoutsRetrieved');
+
+    this.subscription = this.workoutsService.workouts$.subscribe();
   }
 
   ngOnDestroy(): void {

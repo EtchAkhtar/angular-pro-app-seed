@@ -6,6 +6,8 @@ import {
   MealsService
 } from '../../../shared/services/meals/meals.service';
 
+import { Store } from 'store';
+
 import { Observable, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -36,7 +38,12 @@ import { switchMap } from 'rxjs/operators';
       <ng-template #loading>
         <div class="message">
           <img src="/img/loading.svg">
-          Fetching meal...
+          <span *ngIf="mealsRetrieved$ | async; else notRetrieved;">
+            Meal not found
+          </span>
+          <ng-template #notRetrieved>
+            Fetching meal...
+          </ng-template>
         </div>
       </ng-template>
     </div>
@@ -44,19 +51,23 @@ import { switchMap } from 'rxjs/operators';
 })
 export class MealComponent implements OnInit, OnDestroy {
   meal$: Observable<Meal | {}>;
+  mealsRetrieved$: Observable<boolean>;
   subscription: Subscription;
 
   constructor(
     private mealsService: MealsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.mealsService.meals$.subscribe();
     this.meal$ = this.route.params.pipe(
       switchMap(param => this.mealsService.getMeal(param.id))
     );
+    this.mealsRetrieved$ = this.store.select<boolean>('mealsRetrieved');
+
+    this.subscription = this.mealsService.meals$.subscribe();
   }
 
   ngOnDestroy(): void {
