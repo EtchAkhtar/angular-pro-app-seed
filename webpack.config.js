@@ -4,6 +4,7 @@ const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const AngularNamedLazyChunksWebpackPlugin = require('angular-named-lazy-chunks-webpack-plugin');
 
 const paths = {
   build: 'web/dist',
@@ -73,6 +74,7 @@ if (process.env.NODE_ENV === 'production') {
 
   plugins.push(
     new webpack.NamedModulesPlugin(),
+    new AngularNamedLazyChunksWebpackPlugin(),
     new webpack.ContextReplacementPlugin(
       /angular(\\|\/)core(\\|\/)@angular/,
       path.resolve(__dirname, './notfound')

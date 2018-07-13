@@ -507,6 +507,10 @@ amqplib@^0.5.2:
     readable-stream "1.x >=1.1.9"
     safe-buffer "^5.0.1"
 
+angular-named-lazy-chunks-webpack-plugin@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/angular-named-lazy-chunks-webpack-plugin/-/angular-named-lazy-chunks-webpack-plugin-2.0.0.tgz#175850a83af19b2f797751d99f4fb577adcfa2aa"
+
 angular-router-loader@0.8.5:
   version "0.8.5"
   resolved "https://registry.yarnpkg.com/angular-router-loader/-/angular-router-loader-0.8.5.tgz#42b378d0914c1ce412b851c1d92b80dbbe4f2fc5"
