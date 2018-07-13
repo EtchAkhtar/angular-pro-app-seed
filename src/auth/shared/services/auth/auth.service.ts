@@ -4,7 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Store } from 'store';
 
 import { tap } from 'rxjs/operators';
-import { Observable } from '../../../../../node_modules/rxjs';
+import { Observable } from 'rxjs';
 
 export interface User {
   email: string;
