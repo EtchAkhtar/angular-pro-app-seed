@@ -2,6 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
+import { StoreModule, MetaReducer } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+// not used in production
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { storeFreeze } from 'ngrx-store-freeze';
+
 import { Store } from 'store';
 
 // feature modules
@@ -24,10 +30,19 @@ export const ROUTES: Routes = [
   }
 ];
 
+// reducers
+export const metaReducers: MetaReducer<any>[] =
+  process.env.NODE_ENV !== 'production' ? [storeFreeze] : [];
+
 @NgModule({
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
+    StoreModule.forRoot({}, { metaReducers }),
+    EffectsModule.forRoot([]),
+    process.env.NODE_ENV !== 'production'
+      ? StoreDevtoolsModule.instrument()
+      : [],
     AuthModule,
     HealthModule
   ],
