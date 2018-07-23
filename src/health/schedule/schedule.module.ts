@@ -7,20 +7,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
 // containers
-import { ScheduleComponent } from './containers/schedule/schedule.component';
+import * as fromContainers from './containers';
 
 //components
-import { ScheduleCalendarComponent } from './components/schedule-calendar/schedule-calendar.component';
-import { ScheduleDaysComponent } from './components/schedule-days/schedule-days.component';
-import { ScheduleControlsComponent } from './components/schedule-controls/schedule-controls.component';
-import { ScheduleSectionComponent } from './components/schedule-section/schedule-section.component';
-import { ScheduleAssignComponent } from './components/schedule-assign/schedule-assign.component';
+import * as fromComponents from './components';
 
 // routes
 export const ROUTES: Routes = [
   {
     path: '',
-    component: ScheduleComponent
+    component: fromContainers.ScheduleComponent
   }
 ];
 
@@ -31,13 +27,6 @@ export const ROUTES: Routes = [
     RouterModule.forChild(ROUTES),
     SharedModule
   ],
-  declarations: [
-    ScheduleComponent,
-    ScheduleCalendarComponent,
-    ScheduleDaysComponent,
-    ScheduleControlsComponent,
-    ScheduleSectionComponent,
-    ScheduleAssignComponent
-  ]
+  declarations: [...fromContainers.containers, ...fromComponents.components]
 })
 export class ScheduleModule {}

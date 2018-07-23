@@ -3,7 +3,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 
 import { Store } from 'store';
 
-import { AuthService } from '../../../../auth/shared/services/auth/auth.service';
+import { AuthService } from '../../../auth/shared/services/auth/auth.service';
 
 import { Observable, of } from 'rxjs';
 import { tap, filter, map } from 'rxjs/operators';

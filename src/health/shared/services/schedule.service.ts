@@ -3,9 +3,9 @@ import { AngularFireDatabase } from 'angularfire2/database';
 
 import { Store } from 'store';
 
-import { AuthService } from '../../../../auth/shared/services/auth/auth.service';
-import { Meal } from '../meals/meals.service';
-import { Workout } from '../workouts/workouts.service';
+import { AuthService } from '../../../auth/shared/services/auth/auth.service';
+import { Meal } from '../models/meal.model';
+import { Workout } from './workouts.service';
 
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { tap, map, switchMap, withLatestFrom } from 'rxjs/operators';

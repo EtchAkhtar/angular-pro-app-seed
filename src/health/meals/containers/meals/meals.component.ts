@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import {
-  Meal,
-  MealsService
-} from '../../../shared/services/meals/meals.service';
+import { MealsService } from '../../../shared/services/meals.service';
+import { Meal } from '../../../shared/models/meal.model';
 
 import { Store } from 'store';
 

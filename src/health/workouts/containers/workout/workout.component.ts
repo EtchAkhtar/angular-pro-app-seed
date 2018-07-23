@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {
   Workout,
   WorkoutsService
-} from '../../../shared/services/workouts/workouts.service';
+} from '../../../shared/services/workouts.service';
 
 import { Store } from 'store';
 

@@ -1,9 +1,9 @@
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { User } from './auth/shared/services/auth/auth.service';
-import { Meal } from './health/shared/services/meals/meals.service';
-import { Workout } from './health/shared/services/workouts/workouts.service';
-import { ScheduleItem } from './health/shared/services/schedule/schedule.service';
+import { Meal } from './health/shared/models/meal.model';
+import { Workout } from './health/shared/services/workouts.service';
+import { ScheduleItem } from './health/shared/services/schedule.service';
 
 import { pluck, distinctUntilChanged } from 'rxjs/operators';
 

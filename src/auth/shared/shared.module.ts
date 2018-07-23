@@ -3,25 +3,24 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // components
-import { AuthFormComponent } from './components/auth-form/auth-form.component';
+import * as fromComponents from './components';
 
 // services
-import { AuthService } from './services/auth/auth.service';
+import * as fromServices from './services';
 
 // guards
-import { AuthGuard } from './guards/auth.guard';
-import { LoggedInGuard } from './guards/loggedin.guard';
+import * as fromGuards from './guards';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule],
-  declarations: [AuthFormComponent],
-  exports: [AuthFormComponent]
+  declarations: [...fromComponents.components],
+  exports: [...fromComponents.components]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [AuthService, AuthGuard, LoggedInGuard]
+      providers: [...fromServices.services, ...fromGuards.guards]
     };
   }
 }

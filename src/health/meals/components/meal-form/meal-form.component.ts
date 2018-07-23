@@ -15,7 +15,7 @@ import {
   FormControl
 } from '@angular/forms';
 
-import { Meal } from '../../../shared/services/meals/meals.service';
+import { Meal } from '../../../shared/models/meal.model';
 
 @Component({
   selector: 'meal-form',

@@ -15,7 +15,7 @@ import {
   FormControl
 } from '@angular/forms';
 
-import { Workout } from '../../../shared/services/workouts/workouts.service';
+import { Workout } from '../../../shared/services/workouts.service';
 
 @Component({
   selector: 'workout-form',

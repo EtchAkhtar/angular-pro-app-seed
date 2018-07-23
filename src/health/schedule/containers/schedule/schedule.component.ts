@@ -3,17 +3,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   ScheduleService,
   ScheduleList
-} from '../../../shared/services/schedule/schedule.service';
+} from '../../../shared/services/schedule.service';
 
-import {
-  Meal,
-  MealsService
-} from '../../../shared/services/meals/meals.service';
+import { MealsService } from '../../../shared/services/meals.service';
+import { Meal } from '../../../shared/models/meal.model';
 
 import {
   Workout,
   WorkoutsService
-} from '../../../shared/services/workouts/workouts.service';
+} from '../../../shared/services/workouts.service';
 
 import { Store } from 'store';
 

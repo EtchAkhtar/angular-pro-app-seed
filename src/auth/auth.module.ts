@@ -10,6 +10,7 @@ import { AngularFireModule, FirebaseAppConfig } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
+// guards
 import { LoggedInGuard } from './shared/guards/loggedin.guard';
 
 // routes

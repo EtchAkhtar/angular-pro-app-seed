@@ -7,8 +7,8 @@ import {
   EventEmitter
 } from '@angular/core';
 
-import { Meal } from '../../../shared/services/meals/meals.service';
-import { Workout } from '../../../shared/services/workouts/workouts.service';
+import { Meal } from '../../../shared/models/meal.model';
+import { Workout } from '../../../shared/services/workouts.service';
 
 @Component({
   selector: 'schedule-assign',

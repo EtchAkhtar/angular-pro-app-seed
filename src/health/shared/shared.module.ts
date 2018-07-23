@@ -8,27 +8,24 @@ import { RouterModule } from '@angular/router';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 // components
-import { ListItemComponent } from './components/list-item/list-item.component';
+import * as fromComponents from './components';
 
 // services
-import { MealsService } from './services/meals/meals.service';
-import { WorkoutsService } from './services/workouts/workouts.service';
-import { ScheduleService } from './services/schedule/schedule.service';
+import * as fromServices from './services';
 
 // pipes
-import { JoinPipe } from './pipes/join.pipe';
-import { WorkoutPipe } from './pipes/workout.pipe';
+import * as fromPipes from './pipes';
 
 @NgModule({
   imports: [CommonModule, RouterModule, AngularFireDatabaseModule],
-  declarations: [ListItemComponent, JoinPipe, WorkoutPipe],
-  exports: [ListItemComponent, JoinPipe, WorkoutPipe]
+  declarations: [...fromComponents.components, ...fromPipes.pipes],
+  exports: [...fromComponents.components, ...fromPipes.pipes]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [MealsService, WorkoutsService, ScheduleService]
+      providers: [...fromServices.services]
     };
   }
 }

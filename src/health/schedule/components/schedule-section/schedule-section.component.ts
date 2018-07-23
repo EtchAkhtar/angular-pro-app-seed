@@ -6,7 +6,7 @@ import {
   EventEmitter
 } from '@angular/core';
 
-import { ScheduleItem } from '../../../shared/services/schedule/schedule.service';
+import { ScheduleItem } from '../../../shared/services/schedule.service';
 
 @Component({
   selector: 'schedule-section',

@@ -10,7 +10,7 @@ import {
 import {
   ScheduleItem,
   ScheduleList
-} from '../../../shared/services/schedule/schedule.service';
+} from '../../../shared/services/schedule.service';
 
 @Component({
   selector: 'schedule-calendar',
