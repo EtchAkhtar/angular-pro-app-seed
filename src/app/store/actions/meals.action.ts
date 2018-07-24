@@ -21,5 +21,19 @@ export class LoadMealsSuccess implements Action {
   constructor(public payload: Meal[]) {}
 }
 
+// update meal
+export const UPDATE_MEAL = '[Health] Update Meal';
+export const UPDATE_MEAL_FAIL = '[Health] Update Meal Fail';
+export const UPDATE_MEAL_SUCCESS = '[Health] Update Meal Success';
+
+export class UpdateMeal implements Action {
+  readonly type = UPDATE_MEAL;
+  constructor(public payload: Meal) {}
+}
+
 // action types
-export type MealsAction = LoadMeals | LoadMealsFail | LoadMealsSuccess;
+export type MealsAction =
+  | LoadMeals
+  | LoadMealsFail
+  | LoadMealsSuccess
+  | UpdateMeal;

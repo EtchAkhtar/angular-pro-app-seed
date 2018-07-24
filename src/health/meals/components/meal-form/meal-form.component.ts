@@ -180,7 +180,7 @@ export class MealFormComponent implements OnChanges {
 
   updateMeal(): void {
     if (this.form.valid) {
-      this.update.emit(this.form.value);
+      this.update.emit({ ...this.meal, ...this.form.value });
     }
   }
 

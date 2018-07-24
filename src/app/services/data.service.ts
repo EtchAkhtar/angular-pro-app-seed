@@ -35,4 +35,8 @@ export class DataService {
         })
       );
   }
+
+  updateMeal(key: string, meal: Meal): Promise<void> {
+    return this.db.object(`meals/${this.uid}/${key}`).update(meal);
+  }
 }

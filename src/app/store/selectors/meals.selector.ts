@@ -32,7 +32,7 @@ export const getMealsLoading = createSelector(
 export const getSelectedMeal = createSelector(
   getMealsEntities,
   fromRouterSelectors.getRouterState,
-  (entities, router): Meal => {
-    return router.state && entities[router.state.params.mealId];
+  (entities, router): Meal | {} => {
+    return (router.state && entities[router.state.params.mealId]) || {};
   }
 );
