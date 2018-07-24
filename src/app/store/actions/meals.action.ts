@@ -31,9 +31,36 @@ export class UpdateMeal implements Action {
   constructor(public payload: Meal) {}
 }
 
+export class UpdateMealFail implements Action {
+  readonly type = UPDATE_MEAL_FAIL;
+  constructor(public payload: any) {}
+}
+
+export class UpdateMealSuccess implements Action {
+  readonly type = UPDATE_MEAL_SUCCESS;
+}
+
+// create meal
+export const CREATE_MEAL_SUCCESS = '[Health] Create Meal Success';
+
+export class CreateMealSuccess implements Action {
+  readonly type = CREATE_MEAL_SUCCESS;
+}
+
+// delete meal
+export const DELETE_MEAL_SUCCESS = '[Health] Delete Meal Success';
+
+export class DeleteMealSuccess implements Action {
+  readonly type = DELETE_MEAL_SUCCESS;
+}
+
 // action types
 export type MealsAction =
   | LoadMeals
   | LoadMealsFail
   | LoadMealsSuccess
-  | UpdateMeal;
+  | UpdateMeal
+  | UpdateMealFail
+  | UpdateMealSuccess
+  | CreateMealSuccess
+  | DeleteMealSuccess;
