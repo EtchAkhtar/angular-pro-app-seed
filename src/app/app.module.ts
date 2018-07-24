@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
+import {
+  StoreRouterConnectingModule,
+  RouterStateSerializer
+} from '@ngrx/router-store';
 import { StoreModule, MetaReducer } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 // not used in production
@@ -45,6 +49,7 @@ export const metaReducers: MetaReducer<any>[] =
     RouterModule.forRoot(ROUTES),
     StoreModule.forRoot(fromStore.reducers, { metaReducers }),
     EffectsModule.forRoot(fromStore.effects),
+    StoreRouterConnectingModule,
     process.env.NODE_ENV !== 'production'
       ? StoreDevtoolsModule.instrument()
       : [],
@@ -52,7 +57,11 @@ export const metaReducers: MetaReducer<any>[] =
     HealthModule
   ],
   declarations: [...fromContainers.containers, ...fromComponents.components],
-  providers: [Store, ...fromServices.services],
+  providers: [
+    Store,
+    ...fromServices.services,
+    { provide: RouterStateSerializer, useClass: fromStore.CustomSerializer }
+  ],
   bootstrap: [fromContainers.AppComponent]
 })
 export class AppModule {}

@@ -49,7 +49,6 @@ import { Observable, Subscription } from 'rxjs';
 export class MealsComponent implements OnInit, OnDestroy {
   meals$: Observable<Meal[]>;
   mealsLoading$: Observable<boolean>;
-  //  subscription: Subscription;
 
   constructor(
     private mealsService: MealsService,
@@ -57,18 +56,13 @@ export class MealsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    //    this.subscription = this.mealsService.meals$.subscribe();
-    //    this.meals$ = this.store.select<Meal[]>('meals');
-
     this.meals$ = this.store.select<Meal[]>(fromStore.getAllMeals);
     this.mealsLoading$ = this.store.select<boolean>(fromStore.getMealsLoading);
 
     this.store.dispatch(new fromStore.LoadMeals());
   }
 
-  ngOnDestroy(): void {
-    //    this.subscription.unsubscribe;
-  }
+  ngOnDestroy(): void {}
 
   removeMeal(event: Meal): void {
     this.mealsService.removeMeal(event.$key);

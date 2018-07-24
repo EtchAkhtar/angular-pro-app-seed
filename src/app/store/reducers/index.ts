@@ -13,3 +13,5 @@ export const reducers: ActionReducerMap<ApplicationState> = {
   routerReducer: routerReducer,
   meals: fromMeals.reducer
 };
+
+export { CustomSerializer } from './router.reducer';

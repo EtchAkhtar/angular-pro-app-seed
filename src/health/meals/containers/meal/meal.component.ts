@@ -4,9 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MealsService } from '../../../shared/services/meals.service';
 import { Meal } from '../../../../app/store/models/meal.model';
 
-import { Store } from 'store';
+import * as fromStore from '../../../../app/store';
+import { Store } from '@ngrx/store';
 
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
@@ -50,26 +51,24 @@ import { switchMap } from 'rxjs/operators';
 export class MealComponent implements OnInit, OnDestroy {
   meal$: Observable<Meal | {}>;
   mealsRetrieved$: Observable<boolean>;
-  subscription: Subscription;
+  //  subscription: Subscription;
 
   constructor(
     private mealsService: MealsService,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store
+    private store: Store<fromStore.ApplicationState>
   ) {}
 
   ngOnInit(): void {
-    this.meal$ = this.route.params.pipe(
-      switchMap(param => this.mealsService.getMeal(param.id))
-    );
-    this.mealsRetrieved$ = this.store.select<boolean>('mealsRetrieved');
-
-    this.subscription = this.mealsService.meals$.subscribe();
+    this.meal$ = this.store.select<Meal>(fromStore.getSelectedMeal);
+    //    this.mealsRetrieved$ = this.store.select<boolean>('mealsRetrieved');
+    this.mealsRetrieved$ = of(true);
+    //    this.subscription = this.mealsService.meals$.subscribe();
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe;
+    //    this.subscription.unsubscribe;
   }
 
   async addMeal(event: Meal): Promise<void> {
