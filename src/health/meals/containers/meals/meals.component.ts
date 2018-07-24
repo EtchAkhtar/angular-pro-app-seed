@@ -58,8 +58,6 @@ export class MealsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.meals$ = this.store.select<Meal[]>(fromStore.getAllMeals);
     this.mealsLoading$ = this.store.select<boolean>(fromStore.getMealsLoading);
-
-    this.store.dispatch(new fromStore.LoadMeals());
   }
 
   ngOnDestroy(): void {}

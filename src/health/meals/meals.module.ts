@@ -12,11 +12,25 @@ import * as fromContainers from './containers';
 //components
 import * as fromComponents from './components';
 
+// guards
+import * as fromGuards from './guards';
+
 // routes
 export const ROUTES: Routes = [
-  { path: '', component: fromContainers.MealsComponent },
-  { path: 'new', component: fromContainers.MealComponent },
-  { path: ':mealId', component: fromContainers.MealComponent }
+  {
+    path: '',
+    canActivate: [fromGuards.MealsGuard],
+    component: fromContainers.MealsComponent
+  },
+  {
+    path: 'new',
+    component: fromContainers.MealComponent
+  },
+  {
+    path: ':mealId',
+    canActivate: [fromGuards.MealExistsGuards],
+    component: fromContainers.MealComponent
+  }
 ];
 
 @NgModule({
@@ -26,6 +40,7 @@ export const ROUTES: Routes = [
     RouterModule.forChild(ROUTES),
     SharedModule
   ],
+  providers: [...fromGuards.guards],
   declarations: [...fromContainers.containers, ...fromComponents.components]
 })
 export class MealsModule {}
