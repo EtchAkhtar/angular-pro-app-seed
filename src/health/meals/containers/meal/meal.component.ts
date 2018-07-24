@@ -1,4 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 import { MealsService } from '../../../shared/services/meals.service';
 import { Meal } from '../../../../app/store/models/meal.model';
@@ -11,6 +16,7 @@ import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'meal',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['meal.component.scss'],
   template: `
     <div class="meal">
