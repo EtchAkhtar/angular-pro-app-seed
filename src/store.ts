@@ -1,7 +1,7 @@
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { User } from './auth/shared/services/auth/auth.service';
-import { Meal } from './health/shared/models/meal.model';
+import { Meal } from './app/store/models/meal.model';
 import { Workout } from './health/shared/services/workouts.service';
 import { ScheduleItem } from './health/shared/services/schedule.service';
 

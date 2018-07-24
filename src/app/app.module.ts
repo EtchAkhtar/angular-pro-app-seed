@@ -15,11 +15,16 @@ import { AuthModule } from '../auth/auth.module';
 import { HealthModule } from '../health/health.module';
 
 // containers
-import { AppComponent } from './containers/app/app.component';
+import * as fromContainers from './containers';
 
-// components
-import { AppHeaderComponent } from './components/app-header/app-header.component';
-import { AppNavComponent } from './components/app-nav/app-nav.component';
+//components
+import * as fromComponents from './components';
+
+// services
+import * as fromServices from './services';
+
+// ngrx
+import * as fromStore from './store';
 
 // routes
 export const ROUTES: Routes = [
@@ -38,16 +43,16 @@ export const metaReducers: MetaReducer<any>[] =
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
-    StoreModule.forRoot({}, { metaReducers }),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot(fromStore.reducers, { metaReducers }),
+    EffectsModule.forRoot(fromStore.effects),
     process.env.NODE_ENV !== 'production'
       ? StoreDevtoolsModule.instrument()
       : [],
     AuthModule,
     HealthModule
   ],
-  declarations: [AppComponent, AppHeaderComponent, AppNavComponent],
-  providers: [Store],
-  bootstrap: [AppComponent]
+  declarations: [...fromContainers.containers, ...fromComponents.components],
+  providers: [Store, ...fromServices.services],
+  bootstrap: [fromContainers.AppComponent]
 })
 export class AppModule {}

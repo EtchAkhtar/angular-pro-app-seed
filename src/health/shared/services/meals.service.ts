@@ -8,7 +8,7 @@ import { AuthService } from '../../../auth/shared/services/auth/auth.service';
 import { Observable, of } from 'rxjs';
 import { tap, filter, map } from 'rxjs/operators';
 
-import { Meal } from '../../shared/models/meal.model';
+import { Meal } from '../../../app/store/models/meal.model';
 
 @Injectable()
 export class MealsService {
@@ -36,6 +36,24 @@ export class MealsService {
 
   get uid(): string {
     return this.authService.user.uid;
+  }
+
+  getMeals() {
+    return this.db
+      .list(`meals/${this.uid}`)
+      .snapshotChanges()
+      .pipe(
+        map(items => {
+          const newItems = items.map(item => {
+            return { $key: item.key, ...item.payload.val() } as Meal;
+          });
+          return newItems;
+        }),
+        tap(next => {
+          this.store.set('meals', next);
+          this.store.set('mealsRetrieved', true);
+        })
+      );
   }
 
   getMeal(key: string): Observable<Meal | {}> {

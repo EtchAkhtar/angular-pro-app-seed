@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { MealsService } from '../../../shared/services/meals.service';
-import { Meal } from '../../../shared/models/meal.model';
+import { Meal } from '../../../../app/store/models/meal.model';
 
 import { Store } from 'store';
 

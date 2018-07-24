@@ -6,7 +6,7 @@ import {
 } from '../../../shared/services/schedule.service';
 
 import { MealsService } from '../../../shared/services/meals.service';
-import { Meal } from '../../../shared/models/meal.model';
+import { Meal } from '../../../../app/store/models/meal.model';
 
 import {
   Workout,

@@ -4,7 +4,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Store } from 'store';
 
 import { AuthService } from '../../../auth/shared/services/auth/auth.service';
-import { Meal } from '../models/meal.model';
+import { Meal } from '../../../app/store/models/meal.model';
+
 import { Workout } from './workouts.service';
 
 import { Observable, BehaviorSubject, Subject } from 'rxjs';

@@ -7,7 +7,7 @@ import {
   EventEmitter
 } from '@angular/core';
 
-import { Meal } from '../../../shared/models/meal.model';
+import { Meal } from '../../../../app/store/models/meal.model';
 import { Workout } from '../../../shared/services/workouts.service';
 
 @Component({

@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { MealsService } from '../../../shared/services/meals.service';
-import { Meal } from '../../../shared/models/meal.model';
+import { Meal } from '../../../../app/store/models/meal.model';
 
-import { Store } from 'store';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../../../../app/store';
 
 import { Observable, Subscription } from 'rxjs';
 
@@ -25,13 +26,13 @@ import { Observable, Subscription } from 'rxjs';
         </a>
       </div>
 
-      <div *ngIf="meals$ | async as meals; else loading;">
-        <div class="message" *ngIf="!meals.length">
+      <div *ngIf="!(mealsLoading$ | async); else loading;">
+        <div class="message" *ngIf="!((meals$ | async)?.length)">
           <img src="/img/face.svg">
           No meals, add a new meal to start
         </div>
         <list-item
-          *ngFor="let meal of meals"
+          *ngFor="let meal of (meals$ | async)"
           [item]="meal"
           (remove)="removeMeal($event)">
         </list-item>
@@ -47,17 +48,26 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class MealsComponent implements OnInit, OnDestroy {
   meals$: Observable<Meal[]>;
-  subscription: Subscription;
+  mealsLoading$: Observable<boolean>;
+  //  subscription: Subscription;
 
-  constructor(private mealsService: MealsService, private store: Store) {}
+  constructor(
+    private mealsService: MealsService,
+    private store: Store<fromStore.ApplicationState>
+  ) {}
 
   ngOnInit(): void {
-    this.subscription = this.mealsService.meals$.subscribe();
-    this.meals$ = this.store.select<Meal[]>('meals');
+    //    this.subscription = this.mealsService.meals$.subscribe();
+    //    this.meals$ = this.store.select<Meal[]>('meals');
+
+    this.meals$ = this.store.select<Meal[]>(fromStore.getAllMeals);
+    this.mealsLoading$ = this.store.select<boolean>(fromStore.getMealsLoading);
+
+    this.store.dispatch(new fromStore.LoadMeals());
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe;
+    //    this.subscription.unsubscribe;
   }
 
   removeMeal(event: Meal): void {
