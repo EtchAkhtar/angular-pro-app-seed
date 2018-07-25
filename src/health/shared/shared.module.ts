@@ -19,7 +19,7 @@ import * as fromPipes from './pipes';
 @NgModule({
   imports: [CommonModule, RouterModule, AngularFireDatabaseModule],
   declarations: [...fromComponents.components, ...fromPipes.pipes],
-  exports: [...fromComponents.components, ...fromPipes.pipes]
+  exports: [...fromComponents.components, ...fromPipes.pipes, CommonModule]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

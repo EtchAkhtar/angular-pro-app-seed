@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -34,12 +33,7 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule.forChild(ROUTES),
-    SharedModule
-  ],
+  imports: [ReactiveFormsModule, RouterModule.forChild(ROUTES), SharedModule],
   providers: [...fromGuards.guards],
   declarations: [...fromContainers.containers, ...fromComponents.components]
 })
